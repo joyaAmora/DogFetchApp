@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DogFetchApp"
+        xmlns:p="clr-namespace:DogFetchApp.Properties"
         mc:Ignorable="d"
-        Title="Dog picture fetcher" Height="450" Width="800">
+        Title="{x:Static p:Resources.Window_Title}" Height="450" Width="800" x:Name="Window_Title">
     <Window.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="Margin" Value="5"/>
@@ -19,10 +20,10 @@
     </Window.Resources>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="Réglage">
-                <MenuItem Header="Langues">
-                    <MenuItem Header="Français"/>
-                    <MenuItem Header="English"/>
+            <MenuItem x:Name="Settings" Header="{x:Static p:Resources.Settings}">
+                <MenuItem x:Name="Languages_Label" Header="{x:Static p:Resources.Languages_Label}">
+                    <MenuItem x:Name="French_Selector" Header="{x:Static p:Resources.French_Selector}" Click="ChangeLanguage"/>
+                    <MenuItem x:Name="English_Selector" Header="{x:Static p:Resources.English_Selector}" Click="ChangeLanguage"/>
                 </MenuItem>
             </MenuItem>
         </Menu>
@@ -46,28 +47,28 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Column="0" Grid.Row="0" Text="Breed : "/>
-            <ComboBox Grid.Column="1" Grid.Row="0">
+            <TextBlock x:Name="Breed_Label" Grid.Column="0" Grid.Row="0" Text="{x:Static p:Resources.Breed_Label}"/>
+            <ComboBox Grid.Column="1" Grid.Row="0" x:Name="Breeds">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        
+                     
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <TextBlock Grid.Row="1" Text="Nombre de photos :"/>
+            <TextBlock x:Name="NbrPicture_Lable" Grid.Row="1" Text="{x:Static p:Resources.NbrPicture_Lable}"/>
             <ComboBox Grid.Row="1" Grid.Column="1">
                 <ComboBoxItem Content="1"/>
                 <ComboBoxItem Content="3"/>
                 <ComboBoxItem Content="5"/>
                 <ComboBoxItem Content="10"/>
             </ComboBox>
-            <Button Grid.Row="2" Grid.Column="1" Content="Fetch!" Width="150"/>
+            <Button Grid.Row="2" Grid.Column="1" Name="Fetch_Button" Content="{x:Static p:Resources.Fetch_Button}" Width="150" Click="LoadImages"/>
             <Grid Grid.Row="3" Grid.ColumnSpan="2" Margin="20">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <ListView Grid.Row="0" ItemsSource="{Binding}">
+                <ListView Grid.Row="0" ItemsSource="{Binding}" Name="DogImgs">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <UniformGrid Columns="5" HorizontalAlignment="Stretch"/>
@@ -84,8 +85,8 @@
                     </ListView.ItemTemplate>
                 </ListView>
                 <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
-                    <Button Content="Previous" Margin="10"/>
-                    <Button Content="Next" Margin="10"/>
+                    <Button Content="{x:Static p:Resources.previousImageButton}" Margin="10" Click="Click_precedent"/>
+                    <Button Content="{x:Static p:Resources.nextImageButton}" Margin="10" Click="Click_suivant"/>
                 </StackPanel>
             </Grid>
         </Grid>
