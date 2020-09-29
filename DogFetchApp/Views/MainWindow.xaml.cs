@@ -2,9 +2,13 @@
 using ApiHelper.Models;
 using DogFetchApp.ViewModels;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Cache;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,9 +19,18 @@ namespace DogFetchApp
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
         MainViewModel currentViewmodel;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+
+
+        private void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         public MainWindow()
         {
@@ -27,11 +40,6 @@ namespace DogFetchApp
             currentViewmodel = new MainViewModel();
 
             DataContext = currentViewmodel;
-        }
-
-        private void Click_precedent(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void Click_suivant(object sender, RoutedEventArgs e)
@@ -46,12 +54,6 @@ namespace DogFetchApp
             //var uriSource = new Uri(listimg.Message, UriKind.Absolute);
             //DogImgs.ItemsSource = new BitmapImage(uriSource, new RequestCachePolicy(RequestCacheLevel.CacheIfAvailable));
  
-        }
-
-        private async Task LoadBreeds(object sender, RoutedEventArgs e)
-        {
-            var listBreed = await DogApiProcessor.LoadBreedList();
-             
         }
 
         private async void LoadImages(object sender, RoutedEventArgs e)

@@ -6,6 +6,6 @@ namespace ApiHelper.Models
     public class BreedModel
     {
         [JsonProperty("Message")]
-        public List<string> Breeds { get; set; }
+        public Dictionary<string, List<string>> Breeds { get; set; }
     }
 }

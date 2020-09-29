@@ -1,6 +1,7 @@
 ﻿using ApiHelper.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -9,14 +10,26 @@ namespace ApiHelper
     public class DogApiProcessor
     {
 
-        public static async Task<List<BreedModel>> LoadBreedList()
+        public static async Task<List<string>> LoadBreedList()
         {
-            ///TODO : À compléter LoadBreedList
-            /// Attention le type de retour n'est pas nécessairement bon
-            /// J'ai mis quelque chose pour avoir une base
+            string url = $"https://dog.ceo/api/breeds/list/all";
+
+            using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    BreedModel breed = await response.Content.ReadAsAsync<BreedModel>();
+                    var child = breed.Breeds.Values.ToList();
+                    var families = breed.Breeds.Keys.ToList();
+                    return families;
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
 
 
-            return new List<BreedModel>();
+            }
         }
 
         public static async Task<DogModel> GetImageUrl(string breed, int nbrImg)
