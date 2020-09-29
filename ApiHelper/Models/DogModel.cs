@@ -6,10 +6,5 @@ namespace ApiHelper
     {
         public List<string> Message { get; set; }
         public string Title { get; set; }
-
-        public DogModel()
-        {
-
-        }
     }
 }

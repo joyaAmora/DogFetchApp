@@ -19,18 +19,9 @@ namespace DogFetchApp
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, INotifyPropertyChanged
+    public partial class MainWindow : Window
     {
         MainViewModel currentViewmodel;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-
-
-        private void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
 
         public MainWindow()
         {
@@ -41,26 +32,6 @@ namespace DogFetchApp
 
             DataContext = currentViewmodel;
         }
-
-        private void Click_suivant(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private async Task LoadImages()
-        {
-           DogModel dg = new DogModel();
-            //var listImg = await DogApiProcessor.GetImageUrl(breed, nbr);
-            //var uriSource = new Uri(listimg.Message, UriKind.Absolute);
-            //DogImgs.ItemsSource = new BitmapImage(uriSource, new RequestCachePolicy(RequestCacheLevel.CacheIfAvailable));
- 
-        }
-
-        private async void LoadImages(object sender, RoutedEventArgs e)
-        {
-            await LoadImages();
-        }
-
         private void ChangeLanguage(object sender, RoutedEventArgs e)
         {
             MenuItem param = sender as MenuItem;

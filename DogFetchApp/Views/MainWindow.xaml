@@ -48,7 +48,7 @@
             </Grid.RowDefinitions>
 
             <TextBlock x:Name="Breed_Label" Grid.Column="0" Grid.Row="0" Text="{x:Static p:Resources.Breed_Label}"/>
-            <ComboBox Grid.Column="1" Grid.Row="0" x:Name="BreedsList" ItemsSource="{Binding BreedsListCollection}">
+            <ComboBox Grid.Column="1" Grid.Row="0" x:Name="BreedsList" ItemsSource="{Binding BreedsListCollection}" SelectedItem="{Binding SelectedBreed}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate >
                         <TextBlock Text="{Binding}"/>
@@ -62,13 +62,13 @@
                 <ComboBoxItem Content="5"/>
                 <ComboBoxItem Content="10"/>
             </ComboBox>
-            <Button Grid.Row="2" Grid.Column="1" Name="Fetch_Button" Content="{x:Static p:Resources.Fetch_Button}" Width="150" Click="LoadImages"/>
+            <Button Grid.Row="2" Grid.Column="1" Name="Fetch_Button" Content="{x:Static p:Resources.Fetch_Button}" Width="150" Command="{Binding LoadImagesCommand}"/>
             <Grid Grid.Row="3" Grid.ColumnSpan="2" Margin="20">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <ListView Grid.Row="0" ItemsSource="{Binding}" Name="DogImgs">
+                <ListView Grid.Row="0" ItemsSource="{Binding DogsListCollection}"  Name="DogImgs">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <UniformGrid Columns="5" HorizontalAlignment="Stretch"/>
@@ -86,7 +86,7 @@
                 </ListView>
                 <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
                     <Button Content="{x:Static p:Resources.previousImageButton}" Margin="10"/>
-                    <Button Content="{x:Static p:Resources.nextImageButton}" Margin="10" Click="Click_suivant"/>
+                    <Button Content="{x:Static p:Resources.nextImageButton}" Margin="10"/>
                 </StackPanel>
             </Grid>
         </Grid>
