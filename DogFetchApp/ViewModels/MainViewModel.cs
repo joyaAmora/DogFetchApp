@@ -102,6 +102,7 @@ namespace DogFetchApp.ViewModels
         public MainViewModel()
         {
             LoadImagesCommand = new AsyncCommand<string>(LoadImages, CanExecuteLoadImage);
+            NextImagesCommand = new AsyncCommand<string>(LoadImages, CanExecuteNextImage);
             LoadBreeds();
             nbImages();
         }
@@ -117,6 +118,16 @@ namespace DogFetchApp.ViewModels
             return isFetchable;
         }
 
+        private bool CanExecuteNextImage(string T)
+        {
+            bool isFetchable;
+            if ((SelectedBreed != null) && (SelectedNbr != null) && DogsListCollection.Count > 0)
+                isFetchable = true;
+            else
+                isFetchable = false;
+
+            return isFetchable;
+        }
         private void nbImages()
         {
             NbrImgList = new ObservableCollection<string> { "1", "3", "5", "10" };
@@ -132,6 +143,7 @@ namespace DogFetchApp.ViewModels
             {
                 dogsListCollection.Add(dog.Message[i]);
             }
+            NextImagesCommand.RaiseCanExecuteChanged();
         }
 
         private async void LoadBreeds()
