@@ -4,8 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
+using System.Diagnostics;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 
 namespace DogFetchApp.ViewModels
@@ -97,14 +100,27 @@ namespace DogFetchApp.ViewModels
         /*Les commandes*/
         public AsyncCommand<string> NextImagesCommand { get; private set; }
         public AsyncCommand<string> LoadImagesCommand { get; private set; }
+        public DelegateCommand<string> ChangeLanguageCommand { get; private set; }
 
 
         public MainViewModel()
         {
             LoadImagesCommand = new AsyncCommand<string>(LoadImages, CanExecuteLoadImage);
             NextImagesCommand = new AsyncCommand<string>(LoadImages, CanExecuteNextImage);
+            ChangeLanguageCommand = new DelegateCommand<string>(ChangeLanguage);
             LoadBreeds();
             nbImages();
+        }
+
+        private void ChangeLanguage(string arg)
+        {
+            Properties.Settings.Default.Language = arg;
+            Properties.Settings.Default.Save();
+            MessageBox.Show($"{Properties.Resources.RestartMessage}");
+            var filename = Application.ResourceAssembly.Location;
+            var newFile = Path.ChangeExtension(filename, ".exe");
+            Process.Start(newFile);
+            Application.Current.Shutdown();
         }
 
         private bool CanExecuteLoadImage(string T)

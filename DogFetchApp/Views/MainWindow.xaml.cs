@@ -32,16 +32,5 @@ namespace DogFetchApp
 
             DataContext = currentViewmodel;
         }
-        private void ChangeLanguage(object sender, RoutedEventArgs e)
-        {
-            MenuItem param = sender as MenuItem;
-            Properties.Settings.Default.Language = param.Name == "English_Selector" ? "en-CA" : "fr-CA";
-            Properties.Settings.Default.Save();
-            MessageBox.Show($"{Properties.Resources.RestartMessage}");
-            var filename = Application.ResourceAssembly.Location;
-            var newFile = Path.ChangeExtension(filename, ".exe");
-            Process.Start(newFile);
-            Application.Current.Shutdown();
-        }
     }
 }

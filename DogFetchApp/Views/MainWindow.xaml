@@ -22,8 +22,8 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem x:Name="Settings" Header="{x:Static p:Resources.Settings}">
                 <MenuItem x:Name="Languages_Label" Header="{x:Static p:Resources.Languages_Label}">
-                    <MenuItem x:Name="French_Selector" Header="{x:Static p:Resources.French_Selector}" Click="ChangeLanguage"/>
-                    <MenuItem x:Name="English_Selector" Header="{x:Static p:Resources.English_Selector}" Click="ChangeLanguage"/>
+                    <MenuItem x:Name="French_Selector" Header="{x:Static p:Resources.French_Selector}" Command="{Binding ChangeLanguageCommand}" CommandParameter="fr-CA"/>
+                    <MenuItem x:Name="English_Selector" Header="{x:Static p:Resources.English_Selector}" Command="{Binding ChangeLanguageCommand}" CommandParameter="en-CA"/>
                 </MenuItem>
             </MenuItem>
         </Menu>
