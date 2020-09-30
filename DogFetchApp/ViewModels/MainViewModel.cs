@@ -1,15 +1,11 @@
 ﻿using ApiHelper;
 using DogFetchApp.Commands;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Configuration;
 using System.Diagnostics;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Media;
 
 namespace DogFetchApp.ViewModels
 {
@@ -155,11 +151,24 @@ namespace DogFetchApp.ViewModels
 
             DogsListCollection.Clear(); // vide la liste pour n'avoir que la nouvelle requête
 
-            for (int i = 0; i < nbrImg; i++)
+            if (nbrImg > dog.Message.Count)
             {
-                dogsListCollection.Add(dog.Message[i]);
+                nbrImg = dog.Message.Count;
+                MessageBox.Show("Nombre d'images disponible inférieure au nombre demandé");
+                for (int i = 0; i < nbrImg; i++)
+                {
+                    dogsListCollection.Add(dog.Message[i]);
+                }
             }
-            NextImagesCommand.RaiseCanExecuteChanged();
+            else
+            {
+                for (int i = 0; i < nbrImg; i++)
+                {
+                    dogsListCollection.Add(dog.Message[i]);
+                }
+                NextImagesCommand.RaiseCanExecuteChanged();
+            }
+            
         }
 
         private async void LoadBreeds()
